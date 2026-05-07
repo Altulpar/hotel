@@ -1,0 +1,1 @@
+Public routes render their own navigation/footer from the shared components.

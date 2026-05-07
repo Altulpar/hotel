@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model HotelInfo {
+  id              String   @id @default(cuid())
+  hotelName       String   @default("Ada Ruhu Otel")
+  slogan          String   @default("Denize, doğaya ve sakinliğe açılan butik konaklama.")
+  aboutText       String
+  locationText    String
+  phone           String
+  whatsapp        String
+  email           String
+  address         String
+  googleMapsUrl   String?
+  googleMapsEmbed String?
+  instagramUrl    String?
+  facebookUrl     String?
+  heroImageUrl    String?
+  logoUrl         String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Room {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  description String
+  capacity    String
+  bedType     String
+  amenities   String
+  viewType    String
+  notes       String?
+  status      String        @default("PUBLISHED")
+  sortOrder   Int           @default(0)
+  images      RoomImage[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model RoomImage {
+  id        String   @id @default(cuid())
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  imageUrl  String
+  altText   String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GalleryImage {
+  id        String          @id @default(cuid())
+  title     String
+  altText   String
+  imageUrl  String
+  category  String
+  sortOrder Int             @default(0)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+}
+
+model Service {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  icon        String
+  description String
+  imageUrl    String?
+  status      String        @default("PUBLISHED")
+  sortOrder   Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model CalendarItem {
+  id          String           @id @default(cuid())
+  title       String
+  description String
+  date        DateTime
+  startTime   String?
+  endTime     String?
+  category    String
+  imageUrl    String?
+  status      String           @default("PUBLISHED")
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model Announcement {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  summary     String
+  content     String
+  date        DateTime
+  imageUrl    String?
+  status      String        @default("PUBLISHED")
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model NearbyPlace {
+  id          String        @id @default(cuid())
+  name        String
+  slug        String        @unique
+  description String
+  distance    String
+  imageUrl    String?
+  mapUrl      String?
+  status      String        @default("PUBLISHED")
+  sortOrder   Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
