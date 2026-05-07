@@ -7,6 +7,8 @@ import { SelectField } from "@/components/ui/SelectField";
 import { Button } from "@/components/ui/Button";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
 
+export const dynamic = "force-dynamic";
+
 const statusOptions = [{ value: "PUBLISHED", label: "Yayında" }, { value: "DRAFT", label: "Taslak" }];
 const dateInput = (date: Date) => date.toISOString().slice(0, 10);
 

@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/Button";
 import { SelectField } from "@/components/ui/SelectField";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminRoomsPage() {
   const admin = await requireAdmin();
   const rooms = await prisma.room.findMany({

@@ -6,6 +6,8 @@ import { PageHero } from "@/components/public/PageHero";
 import { ContactForm } from "@/components/public/ContactForm";
 import { Button } from "@/components/ui/Button";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "İletişim" };
 
 export default async function ContactPage() {

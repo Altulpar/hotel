@@ -2,6 +2,8 @@ import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { AdminShell } from "@/components/admin/AdminShell";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "Admin Panel" };
 
 export default async function AdminDashboardPage() {

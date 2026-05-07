@@ -5,6 +5,8 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { Button } from "@/components/ui/Button";
 import { formatDate } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminMessagesPage() {
   const admin = await requireAdmin();
   const messages = await prisma.contactMessage.findMany({ orderBy: { createdAt: "desc" } });

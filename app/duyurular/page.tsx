@@ -6,6 +6,8 @@ import { PublicNav } from "@/components/public/PublicNav";
 import { Footer } from "@/components/public/Footer";
 import { PageHero } from "@/components/public/PageHero";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = { title: "Duyurular" };
 
 export default async function AnnouncementsPage() {

@@ -6,6 +6,8 @@ import { Field } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
 import { ImageUploadField } from "@/components/admin/ImageUploadField";
 
+export const dynamic = "force-dynamic";
+
 export default async function SettingsPage() {
   const admin = await requireAdmin();
   const hotel = await prisma.hotelInfo.findFirst();

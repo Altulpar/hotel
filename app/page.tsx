@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/Button";
 import { PublicNav } from "@/components/public/PublicNav";
 import { Footer } from "@/components/public/Footer";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [hotel, rooms, services, gallery, announcements] = await Promise.all([
     prisma.hotelInfo.findFirst(),

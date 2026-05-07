@@ -4,6 +4,8 @@ import { PublicNav } from "@/components/public/PublicNav";
 import { Footer } from "@/components/public/Footer";
 import { PageHero } from "@/components/public/PageHero";
 
+export const dynamic = "force-dynamic";
+
 const categoryLabels: Record<string, string> = {
   ROOMS: "Odalar",
   EXTERIOR: "Dış Mekan",

@@ -5,6 +5,8 @@ import { formatDate } from "@/lib/utils";
 import { PublicNav } from "@/components/public/PublicNav";
 import { Footer } from "@/components/public/Footer";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const announcement = await prisma.announcement.findUnique({ where: { slug } });
