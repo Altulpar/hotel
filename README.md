@@ -21,13 +21,13 @@ cp .env.example .env
 3. Edit `.env` and set:
 
 ```env
-DATABASE_URL="postgresql://USER:PASSWORD@HOST/DATABASE?sslmode=require"
+DATABASE_URL_DATABASE_URL="postgresql://USER:PASSWORD@HOST/DATABASE?sslmode=require"
 ADMIN_EMAIL="admin@example.com"
 ADMIN_PASSWORD="change-me-now"
 AUTH_SECRET="use-a-long-random-secret"
 ```
 
-For Vercel + Neon, use the `DATABASE_URL` that Neon injects into the Vercel project.
+For Vercel + Neon, use the database URL that Neon injects into the Vercel project.
 
 4. Create the database tables and seed Turkish sample content:
 
