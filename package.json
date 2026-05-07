@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "prisma db execute --file prisma/init.sql --schema prisma/schema.prisma",
     "build": "next build",
     "postinstall": "prisma generate",
     "start": "next start",
     "lint": "eslint .",
     "prisma:generate": "prisma generate",
+    "prisma:init": "prisma db execute --file prisma/init.sql --schema prisma/schema.prisma",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "tsx prisma/seed.ts"
   },
