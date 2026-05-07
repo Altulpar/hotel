@@ -119,47 +119,53 @@ async function main() {
     });
   }
 
-  await prisma.galleryImage.createMany({
-    data: [
-      {
-        title: "Gün Batımı Manzarası",
-        altText: "Otel çevresinden gün batımı manzarası",
-        imageUrl:
-          "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
-        category: "VIEW",
-        sortOrder: 1
-      },
-      {
-        title: "Kahvaltı Masası",
-        altText: "Yerel ürünlerle kahvaltı masası",
-        imageUrl:
-          "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=1600&q=80",
-        category: "BREAKFAST",
-        sortOrder: 2
-      }
-    ]
-  });
+  const galleryCount = await prisma.galleryImage.count();
+  if (!galleryCount) {
+    await prisma.galleryImage.createMany({
+      data: [
+        {
+          title: "Gün Batımı Manzarası",
+          altText: "Otel çevresinden gün batımı manzarası",
+          imageUrl:
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80",
+          category: "VIEW",
+          sortOrder: 1
+        },
+        {
+          title: "Kahvaltı Masası",
+          altText: "Yerel ürünlerle kahvaltı masası",
+          imageUrl:
+            "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=1600&q=80",
+          category: "BREAKFAST",
+          sortOrder: 2
+        }
+      ]
+    });
+  }
 
-  await prisma.calendarItem.createMany({
-    data: [
-      {
-        title: "Hafta Sonu Ada Kahvaltısı",
-        description: "Taze otlar, reçeller ve fırından sıcak lezzetlerle açık büfe kahvaltı.",
-        date: new Date("2026-06-06T09:00:00.000Z"),
-        startTime: "09:00",
-        endTime: "11:30",
-        category: "BREAKFAST"
-      },
-      {
-        title: "Yerel Pazar Rotası",
-        description: "Misafirler için ada pazarı ve yerel üretici önerileri.",
-        date: new Date("2026-06-10T10:00:00.000Z"),
-        startTime: "10:00",
-        endTime: "13:00",
-        category: "LOCAL_ACTIVITY"
-      }
-    ]
-  });
+  const calendarItemCount = await prisma.calendarItem.count();
+  if (!calendarItemCount) {
+    await prisma.calendarItem.createMany({
+      data: [
+        {
+          title: "Hafta Sonu Ada Kahvaltısı",
+          description: "Taze otlar, reçeller ve fırından sıcak lezzetlerle açık büfe kahvaltı.",
+          date: new Date("2026-06-06T09:00:00.000Z"),
+          startTime: "09:00",
+          endTime: "11:30",
+          category: "BREAKFAST"
+        },
+        {
+          title: "Yerel Pazar Rotası",
+          description: "Misafirler için ada pazarı ve yerel üretici önerileri.",
+          date: new Date("2026-06-10T10:00:00.000Z"),
+          startTime: "10:00",
+          endTime: "13:00",
+          category: "LOCAL_ACTIVITY"
+        }
+      ]
+    });
+  }
 
   for (const announcement of [
       {

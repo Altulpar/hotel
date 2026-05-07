@@ -1,6 +1,6 @@
 # Ada Ruhu Otel Website
 
-Modern Turkish hotel promotional website built with Next.js, TypeScript, Tailwind CSS, Prisma, and SQLite.
+Modern Turkish hotel promotional website built with Next.js, TypeScript, Tailwind CSS, Prisma, and PostgreSQL.
 
 This project intentionally does **not** include room reservations, booking, availability search, payments, checkout, or price-based flows. It is for promotion, content management, hotel information, rooms, gallery, services, announcements, calendar items, nearby places, and contact messages.
 
@@ -21,23 +21,18 @@ cp .env.example .env
 3. Edit `.env` and set:
 
 ```env
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="postgresql://USER:PASSWORD@HOST/DATABASE?sslmode=require"
 ADMIN_EMAIL="admin@example.com"
 ADMIN_PASSWORD="change-me-now"
 AUTH_SECRET="use-a-long-random-secret"
 ```
 
-4. Create the database and seed Turkish sample content:
+For Vercel + Neon, use the `DATABASE_URL` that Neon injects into the Vercel project.
+
+4. Create the database tables and seed Turkish sample content:
 
 ```bash
-npm run prisma:migrate -- --name init
-npm run prisma:seed
-```
-
-If Prisma's schema engine has a local runtime issue, SQLite development can also be initialized with:
-
-```bash
-sqlite3 prisma/dev.db < prisma/init.sql
+npm run prisma:init
 npm run prisma:seed
 ```
 
