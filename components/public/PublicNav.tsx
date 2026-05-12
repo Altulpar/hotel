@@ -1,71 +1,39 @@
 import Link from "next/link";
-import { Phone, Mail, MapPin } from "lucide-react";
 import { prisma } from "@/lib/db";
+import { PublicNavMenu } from "@/components/public/PublicNavMenu";
 
 const navItems = [
-  ["Ana Sayfa", "/"],
-  ["Hakkımızda", "/hakkimizda"],
-  ["Odalar", "/odalar"],
-  ["Galeri", "/galeri"],
-  ["Hizmetler", "/hizmetler"],
-  ["Etkinlik Takvimi", "/etkinlik-takvimi"],
-  ["Duyurular", "/duyurular"],
-  ["Gör & Yap", "/gor-yap"],
-  ["İletişim", "/iletisim"]
+  { label: "Ana Sayfa", href: "/" },
+  { label: "Hakkımızda", href: "/hakkimizda" },
+  { label: "Odalar", href: "/odalar" },
+  { label: "Galeri", href: "/galeri" },
+  { label: "Hizmetler", href: "/hizmetler" },
+  { label: "Etkinlik Takvimi", href: "/etkinlik-takvimi" },
+  { label: "Duyurular", href: "/duyurular" },
+  { label: "Gör & Yap", href: "/gor-yap" },
+  { label: "İletişim", href: "/iletisim" }
 ];
+
+const desktopItems = navItems.filter((item) =>
+  ["/", "/odalar", "/galeri", "/hizmetler", "/iletisim"].includes(item.href)
+);
 
 export async function PublicNav() {
   const hotel = await prisma.hotelInfo.findFirst();
   return (
     <header className="sticky top-0 z-50 border-b border-coast-sage/20 bg-[#fbfaf6]/95 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4">
-        <Link href="/" className="font-serif text-2xl font-semibold text-coast-deep">
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 md:py-4">
+        <Link href="/" className="min-w-0 truncate font-serif text-xl font-semibold text-coast-deep md:text-2xl">
           {hotel?.hotelName || "Ada Ruhu Otel"}
         </Link>
-        <nav className="hidden items-center gap-5 text-sm font-medium text-coast-ink lg:flex">
-          {navItems.map(([label, href]) => (
-            <Link key={href} href={href} className="hover:text-coast-clay">
-              {label}
-            </Link>
-          ))}
-        </nav>
-        <div className="hidden items-center gap-2 md:flex">
-          {hotel?.phone && (
-            <a
-              href={`tel:${hotel.phone}`}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-coast-mist text-coast-deep"
-              aria-label="Telefon"
-            >
-              <Phone size={18} />
-            </a>
-          )}
-          {hotel?.email && (
-            <a
-              href={`mailto:${hotel.email}`}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-coast-mist text-coast-deep"
-              aria-label="E-posta"
-            >
-              <Mail size={18} />
-            </a>
-          )}
-          {hotel?.googleMapsUrl && (
-            <a
-              href={hotel.googleMapsUrl}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-coast-deep text-white"
-              aria-label="Yol tarifi"
-            >
-              <MapPin size={18} />
-            </a>
-          )}
-        </div>
+        <PublicNavMenu
+          navItems={navItems}
+          desktopItems={desktopItems}
+          phone={hotel?.phone}
+          email={hotel?.email}
+          googleMapsUrl={hotel?.googleMapsUrl}
+        />
       </div>
-      <nav className="flex gap-4 overflow-x-auto border-t border-coast-sage/10 px-4 py-3 text-sm font-medium lg:hidden">
-        {navItems.map(([label, href]) => (
-          <Link key={href} href={href} className="shrink-0">
-            {label}
-          </Link>
-        ))}
-      </nav>
     </header>
   );
 }
