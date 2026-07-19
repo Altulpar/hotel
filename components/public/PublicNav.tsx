@@ -30,12 +30,12 @@ export async function PublicNav() {
           className="relative h-[60px] w-[132px] shrink-0 overflow-hidden md:h-[68px] md:w-[150px]"
         >
           <Image
-            src="/fiore-logo-transparent.png"
+            src="/fiore-logo.jpeg"
             alt="Fiore Gökçeada Butik Otel"
             fill
             priority
             sizes="(min-width: 768px) 150px, 132px"
-            className="object-cover object-center"
+            className="object-cover object-center mix-blend-multiply"
           />
         </Link>
         <PublicNavMenu
