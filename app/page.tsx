@@ -103,14 +103,18 @@ export default async function HomePage() {
             <div className="mt-10 grid gap-6 md:grid-cols-3">
               {rooms.map((room) => (
                 <article key={room.id} className="overflow-hidden rounded-lg border border-coast-sage/20 bg-[#fbfaf6]">
-                  <div className="relative aspect-[4/3]">
+                  <Link
+                    href="/odalar"
+                    aria-label={`${room.name} görsellerini incele`}
+                    className="group relative block aspect-[4/3] overflow-hidden"
+                  >
                     <Image
                       src={room.images[0]?.imageUrl || hotel?.heroImageUrl || ""}
                       alt={room.images[0]?.altText || room.name}
                       fill
-                      className="object-cover"
+                      className="object-cover transition duration-500 group-hover:scale-105"
                     />
-                  </div>
+                  </Link>
                   <div className="p-5">
                     <h3 className="font-serif text-2xl font-semibold">{room.name}</h3>
                     <p className="mt-2 text-sm leading-6 text-coast-ink/65">{room.description}</p>
