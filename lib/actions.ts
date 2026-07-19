@@ -186,8 +186,14 @@ export async function reorderRoomImageAction(formData: FormData) {
   if (targetIndex === currentIndex) return;
 
   const reordered = [...images];
-  const [movedImage] = reordered.splice(currentIndex, 1);
-  reordered.splice(targetIndex, 0, movedImage);
+  if (intent === "cover") {
+    [reordered[0], reordered[currentIndex]] = [reordered[currentIndex], reordered[0]];
+  } else {
+    [reordered[currentIndex], reordered[targetIndex]] = [
+      reordered[targetIndex],
+      reordered[currentIndex]
+    ];
+  }
 
   await prisma.$transaction(
     reordered.map((image, index) =>
