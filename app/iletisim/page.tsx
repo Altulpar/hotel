@@ -3,7 +3,6 @@ import { prisma } from "@/lib/db";
 import { PublicNav } from "@/components/public/PublicNav";
 import { Footer } from "@/components/public/Footer";
 import { PageHero } from "@/components/public/PageHero";
-import { ContactForm } from "@/components/public/ContactForm";
 
 export const dynamic = "force-dynamic";
 
@@ -15,8 +14,8 @@ export default async function ContactPage() {
   return (
     <>
       <PublicNav />
-      <PageHero eyebrow="İletişim" title="Bize ulaşın, otel hakkında bilgi alın." description="Telefon, WhatsApp, e-posta ve iletişim formu ile bize ulaşabilirsiniz." />
-      <main className="mx-auto grid max-w-7xl gap-8 px-4 py-16 md:grid-cols-[0.9fr_1.1fr] md:py-24">
+      <PageHero eyebrow="İletişim" title="Bize ulaşın, otel hakkında bilgi alın." description="Telefon, WhatsApp ve e-posta ile bize ulaşabilirsiniz." />
+      <main className="mx-auto max-w-3xl px-4 py-16 md:py-24">
         <section>
           <div className="grid gap-4">
             {hotel?.phone && (
@@ -41,15 +40,6 @@ export default async function ContactPage() {
             )}
           </div>
         </section>
-        <ContactForm />
-        {hotel?.googleMapsEmbed && (
-          <section className="md:col-span-2">
-            <div
-              className="overflow-hidden rounded-lg border border-coast-sage/20"
-              dangerouslySetInnerHTML={{ __html: hotel.googleMapsEmbed }}
-            />
-          </section>
-        )}
       </main>
       <Footer />
     </>
