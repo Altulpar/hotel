@@ -4,7 +4,6 @@ import { PublicNav } from "@/components/public/PublicNav";
 import { Footer } from "@/components/public/Footer";
 import { PageHero } from "@/components/public/PageHero";
 import { ContactForm } from "@/components/public/ContactForm";
-import { Button } from "@/components/ui/Button";
 
 export const dynamic = "force-dynamic";
 
@@ -41,11 +40,6 @@ export default async function ContactPage() {
               </div>
             )}
           </div>
-          {hotel?.googleMapsUrl && (
-            <Button href={hotel.googleMapsUrl} variant="primary" className="mt-6">
-              Yol Tarifi Al
-            </Button>
-          )}
         </section>
         <ContactForm />
         {hotel?.googleMapsEmbed && (
