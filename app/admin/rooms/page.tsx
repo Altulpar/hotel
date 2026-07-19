@@ -1,6 +1,13 @@
+import Image from "next/image";
+import { ArrowLeft, ArrowRight, Star, Trash2 } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
-import { deleteRoomAction, deleteRoomImageAction, saveRoomAction } from "@/lib/actions";
+import {
+  deleteRoomAction,
+  deleteRoomImageAction,
+  reorderRoomImageAction,
+  saveRoomAction
+} from "@/lib/actions";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { Field } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
@@ -12,7 +19,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminRoomsPage() {
   const admin = await requireAdmin();
   const rooms = await prisma.room.findMany({
-    include: { images: { orderBy: { sortOrder: "asc" } } },
+    include: { images: { orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }] } },
     orderBy: { sortOrder: "asc" }
   });
   return (
@@ -55,16 +62,90 @@ export default async function AdminRoomsPage() {
               <Field label="Notlar" name="notes" defaultValue={room.notes} textarea rows={3} />
               <Button type="submit">Kaydet</Button>
             </form>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {room.images.map((image) => (
-                <form key={image.id} action={deleteRoomImageAction}>
-                  <input type="hidden" name="id" value={image.id} />
-                  <button className="rounded-md bg-coast-mist px-3 py-2 text-xs" type="submit">
-                    Görseli Sil
-                  </button>
-                </form>
-              ))}
-            </div>
+            {room.images.length > 0 && (
+              <div className="mt-6 border-t border-coast-sage/20 pt-5">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <h3 className="font-semibold text-coast-ink">Oda görselleri</h3>
+                  <span className="text-xs text-coast-ink/55">
+                    {room.images.length} görsel · İlk görsel kapaktır
+                  </span>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                  {room.images.map((image, index) => (
+                    <div
+                      key={image.id}
+                      className="overflow-hidden rounded-xl border border-coast-sage/25 bg-coast-mist/35"
+                    >
+                      <div className="relative aspect-[4/3] bg-coast-mist">
+                        <Image
+                          src={image.imageUrl}
+                          alt={image.altText}
+                          fill
+                          sizes="(min-width: 1280px) 25vw, (min-width: 640px) 40vw, 90vw"
+                          className="object-cover"
+                        />
+                        <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                          {index + 1}
+                        </span>
+                        {index === 0 && (
+                          <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-coast-clay px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
+                            <Star size={13} fill="currentColor" aria-hidden="true" /> Kapak
+                          </span>
+                        )}
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 p-3">
+                        <form action={reorderRoomImageAction}>
+                          <input type="hidden" name="id" value={image.id} />
+                          <input type="hidden" name="intent" value="previous" />
+                          <button
+                            type="submit"
+                            disabled={index === 0}
+                            aria-label="Görseli sola taşı"
+                            className="flex min-h-10 w-full items-center justify-center rounded-md border border-coast-sage/30 bg-white text-coast-deep transition hover:bg-coast-mist disabled:cursor-not-allowed disabled:opacity-35"
+                          >
+                            <ArrowLeft size={17} aria-hidden="true" />
+                          </button>
+                        </form>
+                        <form action={reorderRoomImageAction}>
+                          <input type="hidden" name="id" value={image.id} />
+                          <input type="hidden" name="intent" value="next" />
+                          <button
+                            type="submit"
+                            disabled={index === room.images.length - 1}
+                            aria-label="Görseli sağa taşı"
+                            className="flex min-h-10 w-full items-center justify-center rounded-md border border-coast-sage/30 bg-white text-coast-deep transition hover:bg-coast-mist disabled:cursor-not-allowed disabled:opacity-35"
+                          >
+                            <ArrowRight size={17} aria-hidden="true" />
+                          </button>
+                        </form>
+                        <form action={deleteRoomImageAction}>
+                          <input type="hidden" name="id" value={image.id} />
+                          <button
+                            type="submit"
+                            aria-label="Görseli sil"
+                            className="flex min-h-10 w-full items-center justify-center rounded-md bg-red-50 text-red-700 transition hover:bg-red-100"
+                          >
+                            <Trash2 size={17} aria-hidden="true" />
+                          </button>
+                        </form>
+                        {index > 0 && (
+                          <form action={reorderRoomImageAction} className="col-span-3">
+                            <input type="hidden" name="id" value={image.id} />
+                            <input type="hidden" name="intent" value="cover" />
+                            <button
+                              type="submit"
+                              className="flex min-h-10 w-full items-center justify-center gap-2 rounded-md bg-coast-deep px-3 text-xs font-semibold text-white transition hover:bg-coast-ink"
+                            >
+                              <Star size={15} aria-hidden="true" /> Kapak görseli yap
+                            </button>
+                          </form>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             <form action={deleteRoomAction} className="mt-3">
               <input type="hidden" name="id" value={room.id} />
               <Button type="submit" variant="danger">Odayı Sil</Button>

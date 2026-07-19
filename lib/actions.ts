@@ -118,12 +118,16 @@ export async function saveRoomAction(formData: FormData) {
     ? await prisma.room.update({ where: { id }, data })
     : await prisma.room.create({ data });
   if (parsed.imageUrl) {
+    const lastImage = await prisma.roomImage.aggregate({
+      where: { roomId: room.id },
+      _max: { sortOrder: true }
+    });
     await prisma.roomImage.create({
       data: {
         roomId: room.id,
         imageUrl: parsed.imageUrl,
         altText: parsed.imageAlt || parsed.name,
-        sortOrder: 99
+        sortOrder: (lastImage._max.sortOrder ?? -1) + 1
       }
     });
   }
@@ -140,7 +144,58 @@ export async function deleteRoomAction(formData: FormData) {
 
 export async function deleteRoomImageAction(formData: FormData) {
   await requireAdmin();
-  await prisma.roomImage.delete({ where: { id: asString(formData, "id") } });
+  const deletedImage = await prisma.roomImage.delete({
+    where: { id: asString(formData, "id") }
+  });
+  const remainingImages = await prisma.roomImage.findMany({
+    where: { roomId: deletedImage.roomId },
+    orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }]
+  });
+  await prisma.$transaction(
+    remainingImages.map((image, index) =>
+      prisma.roomImage.update({ where: { id: image.id }, data: { sortOrder: index } })
+    )
+  );
+  revalidatePath("/");
+  revalidatePath("/odalar");
+  revalidatePath("/admin/rooms");
+}
+
+export async function reorderRoomImageAction(formData: FormData) {
+  await requireAdmin();
+  const id = asString(formData, "id");
+  const intent = asString(formData, "intent");
+  if (!id || !["previous", "next", "cover"].includes(intent)) return;
+
+  const selectedImage = await prisma.roomImage.findUnique({ where: { id } });
+  if (!selectedImage) return;
+
+  const images = await prisma.roomImage.findMany({
+    where: { roomId: selectedImage.roomId },
+    orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }]
+  });
+  const currentIndex = images.findIndex((image) => image.id === id);
+  if (currentIndex < 0) return;
+
+  const targetIndex =
+    intent === "cover"
+      ? 0
+      : intent === "previous"
+        ? Math.max(0, currentIndex - 1)
+        : Math.min(images.length - 1, currentIndex + 1);
+  if (targetIndex === currentIndex) return;
+
+  const reordered = [...images];
+  const [movedImage] = reordered.splice(currentIndex, 1);
+  reordered.splice(targetIndex, 0, movedImage);
+
+  await prisma.$transaction(
+    reordered.map((image, index) =>
+      prisma.roomImage.update({ where: { id: image.id }, data: { sortOrder: index } })
+    )
+  );
+
+  revalidatePath("/");
   revalidatePath("/odalar");
   revalidatePath("/admin/rooms");
 }

@@ -13,7 +13,7 @@ export default async function HomePage() {
     prisma.hotelInfo.findFirst(),
     prisma.room.findMany({
       where: { status: "PUBLISHED" },
-      include: { images: { orderBy: { sortOrder: "asc" } } },
+      include: { images: { orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }] } },
       orderBy: { sortOrder: "asc" },
       take: 3
     }),

@@ -11,7 +11,7 @@ export const metadata = { title: "Odalar" };
 export default async function RoomsPage() {
   const rooms = await prisma.room.findMany({
     where: { status: "PUBLISHED" },
-    include: { images: { orderBy: { sortOrder: "asc" } } },
+    include: { images: { orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }] } },
     orderBy: { sortOrder: "asc" }
   });
   return (
