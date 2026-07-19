@@ -6,8 +6,8 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: {
-    default: "Ada Ruhu Otel | Butik Otel",
-    template: "%s | Ada Ruhu Otel"
+    default: "Fiore Otel | Gökçeada Butik Otel",
+    template: "%s | Fiore Otel"
   },
   description:
     "Modern, sakin ve fotoğraf odaklı butik otel tanıtım sitesi. Odalar, galeri, hizmetler, etkinlikler ve iletişim bilgileri.",

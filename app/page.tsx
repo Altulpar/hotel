@@ -37,7 +37,7 @@ export default async function HomePage() {
         <section className="relative min-h-[78vh] overflow-hidden">
           <Image
             src={hotel?.heroImageUrl || "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=2200&q=80"}
-            alt={`${hotel?.hotelName || "Ada Ruhu Otel"} manzarası`}
+            alt="Fiore Otel manzarası"
             fill
             priority
             className="object-cover"
@@ -49,7 +49,7 @@ export default async function HomePage() {
                 Butik otel deneyimi
               </p>
               <h1 className="mt-5 font-serif text-5xl font-semibold leading-tight md:text-7xl">
-                {hotel?.hotelName || "Ada Ruhu Otel"}
+                Fiore Otel
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-white/85">{hotel?.slogan}</p>
               <div className="mt-8 flex flex-wrap gap-3">

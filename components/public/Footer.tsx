@@ -11,7 +11,7 @@ export async function Footer() {
     <footer className="bg-coast-ink text-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <p className="font-serif text-3xl">{hotel?.hotelName || "Ada Ruhu Otel"}</p>
+          <p className="font-serif text-3xl">Fiore Otel</p>
           <p className="mt-3 max-w-md text-sm leading-7 text-white/70">{hotel?.slogan}</p>
         </div>
         <div>
@@ -48,7 +48,7 @@ export async function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10 px-4 py-5 text-center text-xs text-white/50">
-        © {new Date().getFullYear()} {hotel?.hotelName || "Ada Ruhu Otel"}. Tüm hakları saklıdır.
+        © {new Date().getFullYear()} Fiore Otel. Tüm hakları saklıdır.
       </div>
     </footer>
   );

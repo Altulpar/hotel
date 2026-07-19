@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { PublicNavMenu } from "@/components/public/PublicNavMenu";
@@ -23,8 +24,19 @@ export async function PublicNav() {
   return (
     <header className="sticky top-0 z-50 border-b border-coast-sage/20 bg-[#fbfaf6]/95 backdrop-blur">
       <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 md:py-4">
-        <Link href="/" className="min-w-0 truncate font-serif text-xl font-semibold text-coast-deep md:text-2xl">
-          {hotel?.hotelName || "Ada Ruhu Otel"}
+        <Link
+          href="/"
+          aria-label="Fiore Otel ana sayfa"
+          className="relative h-[60px] w-[132px] shrink-0 overflow-hidden md:h-[68px] md:w-[150px]"
+        >
+          <Image
+            src="/fiore-logo.jpeg"
+            alt="Fiore Gökçeada Butik Otel"
+            fill
+            priority
+            sizes="(min-width: 768px) 150px, 132px"
+            className="object-cover object-center"
+          />
         </Link>
         <PublicNavMenu
           navItems={navItems}

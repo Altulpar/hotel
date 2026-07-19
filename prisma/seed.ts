@@ -21,10 +21,10 @@ async function main() {
   if (!hotel) {
     await prisma.hotelInfo.create({
       data: {
-        hotelName: "Ada Ruhu Otel",
+        hotelName: "Fiore Otel",
         slogan: "Denize, doğaya ve sakin ada hayatına açılan butik otel.",
         aboutText:
-          "Ada Ruhu Otel; sade tasarımı, ferah odaları ve yerel dokuyu hissettiren atmosferiyle misafirlerine huzurlu bir kaçış sunar. Sabahları taze kahvaltı kokusu, gün içinde deniz esintisi ve akşamları sakin teras sohbetleri buradaki ritmin parçasıdır.",
+          "Fiore Otel; sade tasarımı, ferah odaları ve yerel dokuyu hissettiren atmosferiyle misafirlerine huzurlu bir kaçış sunar. Sabahları taze kahvaltı kokusu, gün içinde deniz esintisi ve akşamları sakin teras sohbetleri buradaki ritmin parçasıdır.",
         locationText:
           "Otelimiz, sahile ve ada merkezindeki keşif noktalarına kolay ulaşılabilen sakin bir konumdadır. Deniz, doğa yürüyüşleri ve yerel lezzetler için iyi bir başlangıç noktasıdır.",
         phone: "+90 555 000 00 00",
@@ -37,6 +37,14 @@ async function main() {
           "https://www.instagram.com/fioreotelgokceada?igsh=MTFmdDJubHhvYXkzdQ==",
         heroImageUrl:
           "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=2200&q=80"
+      }
+    });
+  } else {
+    await prisma.hotelInfo.update({
+      where: { id: hotel.id },
+      data: {
+        hotelName: "Fiore Otel",
+        aboutText: hotel.aboutText.replaceAll("Ada Ruhu Otel", "Fiore Otel")
       }
     });
   }

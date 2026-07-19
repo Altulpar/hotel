@@ -1,4 +1,4 @@
-# Ada Ruhu Otel Website
+# Fiore Otel Website
 
 Modern Turkish hotel promotional website built with Next.js, TypeScript, Tailwind CSS, Prisma, and PostgreSQL.
 
