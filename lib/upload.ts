@@ -1,25 +1,34 @@
 import "server-only";
 
-import { mkdir, writeFile } from "fs/promises";
-import path from "path";
+import { put } from "@vercel/blob";
 import { randomUUID } from "crypto";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+const MAX_FILE_SIZE = 4 * 1024 * 1024;
+const ALLOWED_TYPES: Record<string, string> = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+  "image/gif": "gif"
+};
 
 export async function saveUploadedImage(file: File) {
-  if (!ALLOWED_TYPES.includes(file.type)) {
+  const extension = ALLOWED_TYPES[file.type];
+  if (!extension) {
     throw new Error("Sadece JPG, PNG, WEBP veya GIF yüklenebilir.");
   }
   if (file.size > MAX_FILE_SIZE) {
-    throw new Error("Görsel boyutu 5 MB sınırını aşamaz.");
+    throw new Error("Görsel boyutu 4 MB sınırını aşamaz.");
+  }
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    throw new Error("Vercel Blob bağlantısı yapılandırılmamış.");
   }
 
-  const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
   const filename = `${randomUUID()}.${extension}`;
-  const uploadDir = path.join(process.cwd(), "public", "uploads");
-  await mkdir(uploadDir, { recursive: true });
-  const bytes = Buffer.from(await file.arrayBuffer());
-  await writeFile(path.join(uploadDir, filename), bytes);
-  return `/uploads/${filename}`;
+  const blob = await put(`hotel/${filename}`, file, {
+    access: "public",
+    addRandomSuffix: false,
+    contentType: file.type
+  });
+
+  return blob.url;
 }

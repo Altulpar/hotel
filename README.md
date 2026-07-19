@@ -25,9 +25,12 @@ DATABASE_URL_DATABASE_URL="postgresql://USER:PASSWORD@HOST/DATABASE?sslmode=requ
 ADMIN_EMAIL="admin@example.com"
 ADMIN_PASSWORD="change-me-now"
 AUTH_SECRET="use-a-long-random-secret"
+BLOB_READ_WRITE_TOKEN="vercel_blob_rw_..."
 ```
 
 For Vercel + Neon, use the database URL that Neon injects into the Vercel project.
+For image uploads on Vercel, connect a public Blob store to the project. Vercel
+automatically injects `BLOB_READ_WRITE_TOKEN` for the selected environments.
 
 4. Create the database tables and seed Turkish sample content:
 
@@ -70,7 +73,7 @@ The admin can update:
 - `lib/db.ts`: Prisma client singleton
 - `lib/auth.ts`: signed HTTP-only cookie admin auth
 - `lib/actions.ts`: server actions for contact and admin CRUD
-- `lib/upload.ts`: local upload implementation for `/public/uploads`
+- `lib/upload.ts`: authenticated image uploads to a public Vercel Blob store
 - `lib/validations.ts`: Zod validation schemas
 - `prisma/schema.prisma`: database models
 - `prisma/seed.ts`: Turkish sample data and seeded admin user
