@@ -41,6 +41,8 @@ async function main() {
     });
   }
 
+  await prisma.room.deleteMany({ where: { slug: "bahce-kati-oda" } });
+
   for (const room of [
       {
         name: "Deniz Manzaralı Oda",
@@ -52,17 +54,6 @@ async function main() {
         amenities: "Klima, Wi-Fi, mini buzdolabı, çalışma masası, banyo ürünleri",
         viewType: "Deniz manzarası",
         sortOrder: 1
-      },
-      {
-        name: "Bahçe Katı Oda",
-        slug: "bahce-kati-oda",
-        description:
-          "Bahçeye yakın, serin ve sade bir atmosfer isteyen misafirler için ferah oda.",
-        capacity: "2 yetişkin + 1 çocuk",
-        bedType: "1 çift kişilik yatak + açılır koltuk",
-        amenities: "Klima, Wi-Fi, kahve köşesi, gardırop, banyo ürünleri",
-        viewType: "Bahçe manzarası",
-        sortOrder: 2
       }
     ]) {
     await prisma.room.upsert({
