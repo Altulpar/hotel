@@ -2,6 +2,9 @@ import Link from "next/link";
 import { Instagram, Mail, Phone } from "lucide-react";
 import { prisma } from "@/lib/db";
 
+const INSTAGRAM_URL =
+  "https://www.instagram.com/fioreotelgokceada?igsh=MTFmdDJubHhvYXkzdQ==";
+
 export async function Footer() {
   const hotel = await prisma.hotelInfo.findFirst();
   return (
@@ -33,11 +36,14 @@ export async function Footer() {
                 <Mail size={16} /> {hotel.email}
               </a>
             )}
-            {hotel?.instagramUrl && (
-              <a href={hotel.instagramUrl} className="flex items-center gap-2">
-                <Instagram size={16} /> Instagram
-              </a>
-            )}
+            <a
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2"
+            >
+              <Instagram size={16} /> Instagram
+            </a>
           </div>
         </div>
       </div>

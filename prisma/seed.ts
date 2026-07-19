@@ -33,7 +33,8 @@ async function main() {
         address: "Gökçeada, Çanakkale, Türkiye",
         googleMapsUrl: "https://maps.google.com",
         googleMapsEmbed: "",
-        instagramUrl: "https://instagram.com",
+        instagramUrl:
+          "https://www.instagram.com/fioreotelgokceada?igsh=MTFmdDJubHhvYXkzdQ==",
         heroImageUrl:
           "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=2200&q=80"
       }
