@@ -49,45 +49,9 @@ async function main() {
     });
   }
 
-  await prisma.room.deleteMany({ where: { slug: "bahce-kati-oda" } });
-
-  for (const room of [
-      {
-        name: "Deniz Manzaralı Oda",
-        slug: "deniz-manzarali-oda",
-        description:
-          "Geniş pencereleri, doğal tonları ve sakin manzarasıyla iki kişilik konforlu oda.",
-        capacity: "2 yetişkin",
-        bedType: "1 çift kişilik yatak",
-        amenities: "Klima, Wi-Fi, mini buzdolabı, çalışma masası, banyo ürünleri",
-        viewType: "Deniz manzarası",
-        sortOrder: 1
-      }
-    ]) {
-    await prisma.room.upsert({
-      where: { slug: room.slug },
-      update: {},
-      create: room
-    });
-  }
-
-  const rooms = await prisma.room.findMany();
-  for (const room of rooms) {
-    const count = await prisma.roomImage.count({ where: { roomId: room.id } });
-    if (!count) {
-      await prisma.roomImage.create({
-        data: {
-          roomId: room.id,
-          imageUrl:
-            room.slug === "deniz-manzarali-oda"
-              ? "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1600&q=80"
-              : "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1600&q=80",
-          altText: room.name,
-          sortOrder: 1
-        }
-      });
-    }
-  }
+  await prisma.room.deleteMany({
+    where: { slug: { in: ["bahce-kati-oda", "deniz-manzarali-oda"] } }
+  });
 
   for (const service of [
       {
