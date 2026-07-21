@@ -1,4 +1,4 @@
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { PublicNav } from "@/components/public/PublicNav";
 import { Footer } from "@/components/public/Footer";
@@ -10,22 +10,16 @@ export const metadata = { title: "İletişim" };
 
 export default async function ContactPage() {
   const hotel = await prisma.hotelInfo.findFirst();
-  const whatsapp = hotel?.whatsapp?.replace(/[^0-9]/g, "");
   return (
     <>
       <PublicNav />
-      <PageHero eyebrow="İletişim" title="Bize ulaşın, otel hakkında bilgi alın." description="Telefon, WhatsApp ve e-posta ile bize ulaşabilirsiniz." />
+      <PageHero eyebrow="İletişim" title="Bize ulaşın, otel hakkında bilgi alın." description="Telefon ve e-posta ile bize ulaşabilirsiniz." />
       <main className="mx-auto max-w-3xl px-4 py-16 md:py-24">
         <section>
           <div className="grid gap-4">
             {hotel?.phone && (
               <a href={`tel:${hotel.phone}`} className="flex items-center gap-3 rounded-lg bg-white p-5 shadow-soft">
                 <Phone className="text-coast-clay" /> <span>{hotel.phone}</span>
-              </a>
-            )}
-            {whatsapp && (
-              <a href={`https://wa.me/${whatsapp}`} className="flex items-center gap-3 rounded-lg bg-white p-5 shadow-soft">
-                <MessageCircle className="text-coast-clay" /> <span>WhatsApp ile yazın</span>
               </a>
             )}
             {hotel?.email && (
