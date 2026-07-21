@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/Button";
 import { PublicNav } from "@/components/public/PublicNav";
@@ -166,11 +166,11 @@ export default async function HomePage() {
             <div className="rounded-lg bg-coast-deep p-8 text-white">
               <h2 className="font-serif text-4xl font-semibold">Bilgi almak ister misiniz?</h2>
               <p className="mt-4 leading-7 text-white/75">
-                Oda özellikleri, ulaşım ve otel olanakları hakkında bize telefon, WhatsApp veya e-posta ile ulaşabilirsiniz.
+                Oda özellikleri, ulaşım ve otel olanakları hakkında bize telefon veya e-posta ile ulaşabilirsiniz.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 {hotel?.phone && <Button href={`tel:${hotel.phone}`} variant="secondary"><Phone size={18} /> Hemen Ara</Button>}
-                {hotel?.whatsapp && <Button href={`https://wa.me/${hotel.whatsapp.replace(/[^0-9]/g, "")}`} variant="secondary"><MessageCircle size={18} /> WhatsApp</Button>}
+                {hotel?.email && <Button href={`mailto:${hotel.email}`} variant="secondary"><Mail size={18} /> E-posta Gönder</Button>}
               </div>
             </div>
             <div className="rounded-lg border border-coast-sage/20 bg-white p-8">
