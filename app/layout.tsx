@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
   description:
     "Modern, sakin ve fotoğraf odaklı butik otel tanıtım sitesi. Odalar, galeri, hizmetler, etkinlikler ve iletişim bilgileri.",
-  metadataBase: new URL("https://example.com")
+  metadataBase: new URL("https://www.fioreotelgokceada.com")
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

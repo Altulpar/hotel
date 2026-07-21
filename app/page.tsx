@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { prisma } from "@/lib/db";
 import { Button } from "@/components/ui/Button";
@@ -7,6 +8,10 @@ import { PublicNav } from "@/components/public/PublicNav";
 import { Footer } from "@/components/public/Footer";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" }
+};
 
 export default async function HomePage() {
   const [hotel, rooms, services, gallery, announcements] = await Promise.all([
