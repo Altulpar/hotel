@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 const icons = { Coffee, Sparkles, Wifi, Car, Utensils, Trees, Wind, Map };
 
-export const metadata = { title: "Hizmetler" };
+export const metadata = { title: "Hizmetler", alternates: { canonical: "/hizmetler" } };
 
 export default async function ServicesPage() {
   const services = await prisma.service.findMany({ where: { status: "PUBLISHED" }, orderBy: { sortOrder: "asc" } });

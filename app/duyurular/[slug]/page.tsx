@@ -9,8 +9,23 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const announcement = await prisma.announcement.findUnique({ where: { slug } });
-  return { title: announcement?.title || "Duyuru" };
+  const announcement = await prisma.announcement.findUnique({
+    where: { slug },
+    select: { title: true, summary: true, status: true }
+  });
+
+  if (!announcement || announcement.status !== "PUBLISHED") {
+    return {
+      title: "Duyuru",
+      robots: { index: false, follow: false }
+    };
+  }
+
+  return {
+    title: announcement.title,
+    description: announcement.summary,
+    alternates: { canonical: `/duyurular/${slug}` }
+  };
 }
 
 export default async function AnnouncementDetailPage({ params }: { params: Promise<{ slug: string }> }) {

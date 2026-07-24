@@ -14,7 +14,7 @@ const labels: Record<string, string> = {
   LOCAL_ACTIVITY: "Yerel Aktivite"
 };
 
-export const metadata = { title: "Etkinlik Takvimi" };
+export const metadata = { title: "Etkinlik Takvimi", alternates: { canonical: "/etkinlik-takvimi" } };
 
 export default async function CalendarPage() {
   const items = await prisma.calendarItem.findMany({

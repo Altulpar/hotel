@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
   },
   description:
     "Modern, sakin ve fotoğraf odaklı butik otel tanıtım sitesi. Odalar, galeri, hizmetler, etkinlikler ve iletişim bilgileri.",
-  metadataBase: new URL("https://www.fioreotelgokceada.com")
+  metadataBase: new URL(SITE_URL)
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

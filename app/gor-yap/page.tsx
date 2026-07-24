@@ -7,7 +7,7 @@ import { PageHero } from "@/components/public/PageHero";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = { title: "Gör & Yap" };
+export const metadata = { title: "Gör & Yap", alternates: { canonical: "/gor-yap" } };
 
 export default async function NearbyPage() {
   const places = await prisma.nearbyPlace.findMany({

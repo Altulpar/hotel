@@ -16,7 +16,7 @@ const categoryLabels: Record<string, string> = {
   NEARBY: "Yakın Yerler"
 };
 
-export const metadata = { title: "Galeri" };
+export const metadata = { title: "Galeri", alternates: { canonical: "/galeri" } };
 
 export default async function GalleryPage() {
   const images = await prisma.galleryImage.findMany({ orderBy: [{ category: "asc" }, { sortOrder: "asc" }] });

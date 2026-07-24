@@ -6,7 +6,7 @@ import { RoomCarousel } from "@/components/public/RoomCarousel";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = { title: "Odalar" };
+export const metadata = { title: "Odalar", alternates: { canonical: "/odalar" } };
 
 export default async function RoomsPage() {
   const rooms = await prisma.room.findMany({

@@ -8,7 +8,7 @@ import { PageHero } from "@/components/public/PageHero";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = { title: "Duyurular" };
+export const metadata = { title: "Duyurular", alternates: { canonical: "/duyurular" } };
 
 export default async function AnnouncementsPage() {
   const announcements = await prisma.announcement.findMany({

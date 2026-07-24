@@ -6,7 +6,7 @@ import { PageHero } from "@/components/public/PageHero";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = { title: "İletişim" };
+export const metadata = { title: "İletişim", alternates: { canonical: "/iletisim" } };
 
 export default async function ContactPage() {
   const hotel = await prisma.hotelInfo.findFirst();
