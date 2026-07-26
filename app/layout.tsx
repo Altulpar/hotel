@@ -12,7 +12,19 @@ export const metadata: Metadata = {
   },
   description:
     "Modern, sakin ve fotoğraf odaklı Gökçeada oteli. Odalar, galeri, hizmetler, etkinlikler ve iletişim bilgileri.",
-  metadataBase: new URL(SITE_URL)
+  metadataBase: new URL(SITE_URL),
+  icons: {
+    icon: {
+      url: "/favicon.png",
+      type: "image/png",
+      sizes: "512x512"
+    },
+    apple: {
+      url: "/apple-icon.png",
+      type: "image/png",
+      sizes: "180x180"
+    }
+  }
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
