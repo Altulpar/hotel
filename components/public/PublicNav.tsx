@@ -31,7 +31,7 @@ export async function PublicNav() {
         >
           <Image
             src="/fiore-logo-transparent.png"
-            alt="Fiore Gökçeada Butik Otel"
+            alt="Fiore Gökçeada Otel"
             fill
             priority
             sizes="(min-width: 768px) 150px, 132px"

@@ -7,11 +7,11 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: {
-    default: "Fiore Otel | Gökçeada Butik Otel",
+    default: "Fiore Otel | Gökçeada Otel",
     template: "%s | Fiore Otel"
   },
   description:
-    "Modern, sakin ve fotoğraf odaklı butik otel tanıtım sitesi. Odalar, galeri, hizmetler, etkinlikler ve iletişim bilgileri.",
+    "Modern, sakin ve fotoğraf odaklı Gökçeada oteli. Odalar, galeri, hizmetler, etkinlikler ve iletişim bilgileri.",
   metadataBase: new URL(SITE_URL)
 };
 

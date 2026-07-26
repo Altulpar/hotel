@@ -51,7 +51,7 @@ export default async function HomePage() {
           <div className="relative mx-auto flex min-h-[78vh] max-w-7xl items-center px-4 py-24">
             <div className="max-w-3xl text-white">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-coast-sand">
-                Butik otel deneyimi
+                Eşsiz bir ada oteli deneyimi
               </p>
               <h1 className="mt-5 font-serif text-5xl font-semibold leading-tight md:text-7xl">
                 Fiore Otel

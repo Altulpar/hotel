@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS "AdminUser" (
 CREATE TABLE IF NOT EXISTS "HotelInfo" (
   "id" TEXT NOT NULL PRIMARY KEY,
   "hotelName" TEXT NOT NULL DEFAULT 'Fiore Otel',
-  "slogan" TEXT NOT NULL DEFAULT 'Denize, doğaya ve sakinliğe açılan butik konaklama.',
+  "slogan" TEXT NOT NULL DEFAULT 'Denize, doğaya ve sakinliğe açılan konaklama.',
   "aboutText" TEXT NOT NULL,
   "locationText" TEXT NOT NULL,
   "phone" TEXT NOT NULL,

@@ -15,7 +15,7 @@ export default async function AboutPage() {
       <PublicNav />
       <PageHero
         eyebrow="Hakkımızda"
-        title="Ada hayatının sakin ritmine uyumlanan butik otel."
+        title="Ada hayatının sakin ritmine uyumlanan otel."
         description={hotel?.slogan || ""}
       />
       <main className="mx-auto grid max-w-7xl gap-10 px-4 py-16 md:grid-cols-[1fr_1fr] md:py-24">
