@@ -26,12 +26,12 @@ export async function PublicNav() {
       <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 md:py-4">
         <Link
           href="/"
-          aria-label="Fiore Otel ana sayfa"
+          aria-label="Ad Otelcilik Fiore Gökçeada ana sayfa"
           className="relative h-[60px] w-[132px] shrink-0 overflow-hidden md:h-[68px] md:w-[150px]"
         >
           <Image
             src="/fiore-logo-transparent.png"
-            alt="Fiore Gökçeada Otel"
+            alt="Ad Otelcilik Fiore Gökçeada"
             fill
             priority
             sizes="(min-width: 768px) 150px, 132px"

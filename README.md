@@ -1,4 +1,4 @@
-# Fiore Otel Website
+# Ad Otelcilik Fiore Gökçeada Website
 
 Modern Turkish hotel promotional website built with Next.js, TypeScript, Tailwind CSS, Prisma, and PostgreSQL.
 

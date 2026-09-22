@@ -21,10 +21,10 @@ async function main() {
   if (!hotel) {
     await prisma.hotelInfo.create({
       data: {
-        hotelName: "Fiore Otel",
+        hotelName: "Ad Otelcilik Fiore Gökçeada",
         slogan: "Denize, doğaya ve sakin ada hayatına açılan otel.",
         aboutText:
-          "Fiore Otel; sade tasarımı, ferah odaları ve yerel dokuyu hissettiren atmosferiyle misafirlerine huzurlu bir kaçış sunar. Sabahları taze kahvaltı kokusu, gün içinde deniz esintisi ve akşamları sakin teras sohbetleri buradaki ritmin parçasıdır.",
+          "Ad Otelcilik Fiore Gökçeada; sade tasarımı, ferah odaları ve yerel dokuyu hissettiren atmosferiyle misafirlerine huzurlu bir kaçış sunar. Sabahları taze kahvaltı kokusu, gün içinde deniz esintisi ve akşamları sakin teras sohbetleri buradaki ritmin parçasıdır.",
         locationText:
           "Otelimiz, sahile ve ada merkezindeki keşif noktalarına kolay ulaşılabilen sakin bir konumdadır. Deniz, doğa yürüyüşleri ve yerel lezzetler için iyi bir başlangıç noktasıdır.",
         phone: "+90 555 000 00 00",
@@ -43,11 +43,13 @@ async function main() {
     await prisma.hotelInfo.update({
       where: { id: hotel.id },
       data: {
-        hotelName: "Fiore Otel",
+        hotelName: "Ad Otelcilik Fiore Gökçeada",
         slogan: hotel.slogan
           .replaceAll("butik otel", "otel")
           .replaceAll("butik konaklama", "konaklama"),
-        aboutText: hotel.aboutText.replaceAll("Ada Ruhu Otel", "Fiore Otel")
+        aboutText: hotel.aboutText
+          .replaceAll("Ada Ruhu Otel", "Ad Otelcilik Fiore Gökçeada")
+          .replaceAll("Fiore Otel", "Ad Otelcilik Fiore Gökçeada")
       }
     });
   }

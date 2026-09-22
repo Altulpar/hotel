@@ -42,7 +42,7 @@ export default async function HomePage() {
         <section className="relative min-h-[78vh] overflow-hidden">
           <Image
             src={hotel?.heroImageUrl || "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=2200&q=80"}
-            alt="Fiore Otel manzarası"
+            alt="Ad Otelcilik Fiore Gökçeada manzarası"
             fill
             priority
             className="object-cover"
@@ -50,11 +50,8 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-r from-coast-ink/75 via-coast-ink/35 to-transparent" />
           <div className="relative mx-auto flex min-h-[78vh] max-w-7xl items-center px-4 py-24">
             <div className="max-w-3xl text-white">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-coast-sand">
-                Eşsiz bir ada oteli deneyimi
-              </p>
-              <h1 className="mt-5 font-serif text-5xl font-semibold leading-tight md:text-7xl">
-                Fiore Otel
+              <h1 className="font-serif text-4xl font-semibold leading-tight md:text-6xl">
+                Ad Otelcilik Fiore Gökçeada
               </h1>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-white/85">{hotel?.slogan}</p>
               <div className="mt-8 flex flex-wrap gap-3">
