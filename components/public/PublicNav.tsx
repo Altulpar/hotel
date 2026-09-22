@@ -27,15 +27,15 @@ export async function PublicNav() {
         <Link
           href="/"
           aria-label="Ad Otelcilik Fiore Gökçeada ana sayfa"
-          className="relative h-[60px] w-[132px] shrink-0 overflow-hidden md:h-[68px] md:w-[150px]"
+          className="relative h-[92px] w-[132px] shrink-0 overflow-hidden md:h-[108px] md:w-[156px]"
         >
           <Image
-            src="/fiore-logo-transparent.png"
+            src="/ad-otelcilik-fiore-logo.png"
             alt="Ad Otelcilik Fiore Gökçeada"
             fill
             priority
-            sizes="(min-width: 768px) 150px, 132px"
-            className="object-cover object-center"
+            sizes="(min-width: 768px) 156px, 132px"
+            className="object-contain object-center"
           />
         </Link>
         <PublicNavMenu
