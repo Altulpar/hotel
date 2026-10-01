@@ -80,6 +80,28 @@ export async function createAdminUserAction(_: unknown, formData: FormData) {
   return { success: "Yeni yönetici hesabı oluşturuldu." };
 }
 
+export async function promoteAdminUserAction(formData: FormData) {
+  const owner = await requireOwner();
+  const id = asString(formData, "id");
+  if (!id || id === owner.id) return;
+
+  await prisma.adminUser.updateMany({
+    where: { id, role: "EDITOR" },
+    data: { role: "OWNER" }
+  });
+  revalidatePath("/admin/users");
+}
+
+export async function deleteAdminUserAction(formData: FormData) {
+  const owner = await requireOwner();
+  const id = asString(formData, "id");
+  if (!id || id === owner.id) return;
+
+  // Ana yönetici hesapları bu işlemle silinemez.
+  await prisma.adminUser.deleteMany({ where: { id, role: "EDITOR" } });
+  revalidatePath("/admin/users");
+}
+
 export async function contactAction(_: unknown, formData: FormData) {
   const parsed = contactSchema.safeParse({
     name: asString(formData, "name"),

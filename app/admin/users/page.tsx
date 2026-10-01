@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db";
 import { requireOwner } from "@/lib/auth";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { CreateAdminForm } from "@/components/admin/CreateAdminForm";
+import { AdminUserActions } from "@/components/admin/AdminUserActions";
 
 export const dynamic = "force-dynamic";
 
@@ -38,9 +39,15 @@ export default async function AdminUsersPage() {
                   {item.role === "OWNER" ? "Ana yönetici" : "İçerik yöneticisi"}
                 </p>
               </div>
-              {item.id === admin.id && (
+              {item.id === admin.id ? (
                 <span className="rounded-full bg-coast-mist px-3 py-1 text-xs font-semibold text-coast-deep">
                   Aktif hesap
+                </span>
+              ) : item.role === "EDITOR" ? (
+                <AdminUserActions id={item.id} name={item.name} />
+              ) : (
+                <span className="rounded-full bg-coast-mist px-3 py-1 text-xs font-semibold text-coast-deep">
+                  Ana yönetici
                 </span>
               )}
             </div>
