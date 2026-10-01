@@ -118,22 +118,16 @@ export default async function AdminRoomsPage() {
                             <ArrowRight size={17} aria-hidden="true" />
                           </button>
                         </form>
-                        {admin.role === "OWNER" ? (
-                          <form action={deleteRoomImageAction}>
-                            <input type="hidden" name="id" value={image.id} />
-                            <button
-                              type="submit"
-                              aria-label="Görseli sil"
-                              className="flex min-h-10 w-full items-center justify-center rounded-md bg-red-50 text-red-700 transition hover:bg-red-100"
-                            >
-                              <Trash2 size={17} aria-hidden="true" />
-                            </button>
-                          </form>
-                        ) : (
-                          <span className="flex min-h-10 items-center justify-center text-xs text-coast-ink/40">
-                            Silme yetkisi yok
-                          </span>
-                        )}
+                        <form action={deleteRoomImageAction}>
+                          <input type="hidden" name="id" value={image.id} />
+                          <button
+                            type="submit"
+                            aria-label="Görseli sil"
+                            className="flex min-h-10 w-full items-center justify-center rounded-md bg-red-50 text-red-700 transition hover:bg-red-100"
+                          >
+                            <Trash2 size={17} aria-hidden="true" />
+                          </button>
+                        </form>
                         {index > 0 && (
                           <form action={reorderRoomImageAction} className="col-span-3">
                             <input type="hidden" name="id" value={image.id} />
@@ -152,12 +146,10 @@ export default async function AdminRoomsPage() {
                 </div>
               </div>
             )}
-            {admin.role === "OWNER" && (
-              <form action={deleteRoomAction} className="mt-3">
-                <input type="hidden" name="id" value={room.id} />
-                <Button type="submit" variant="danger">Odayı Sil</Button>
-              </form>
-            )}
+            <form action={deleteRoomAction} className="mt-3">
+              <input type="hidden" name="id" value={room.id} />
+              <Button type="submit" variant="danger">Odayı Sil</Button>
+            </form>
           </section>
         ))}
       </div>

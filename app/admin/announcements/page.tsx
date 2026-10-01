@@ -45,12 +45,10 @@ export default async function AdminAnnouncementsPage() {
               <Field label="İçerik" name="content" defaultValue={item.content} textarea rows={7} required />
               <Button type="submit">Kaydet</Button>
             </form>
-            {admin.role === "OWNER" && (
-              <form action={deleteAnnouncementAction} className="mt-3">
-                <input type="hidden" name="id" value={item.id} />
-                <Button type="submit" variant="danger">Sil</Button>
-              </form>
-            )}
+            <form action={deleteAnnouncementAction} className="mt-3">
+              <input type="hidden" name="id" value={item.id} />
+              <Button type="submit" variant="danger">Sil</Button>
+            </form>
           </section>
         ))}
       </div>

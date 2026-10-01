@@ -45,12 +45,10 @@ export default async function AdminServicesPage() {
               <Field label="Açıklama" name="description" defaultValue={service.description} textarea required />
               <Button type="submit">Kaydet</Button>
             </form>
-            {admin.role === "OWNER" && (
-              <form action={deleteServiceAction} className="mt-3">
-                <input type="hidden" name="id" value={service.id} />
-                <Button type="submit" variant="danger">Sil</Button>
-              </form>
-            )}
+            <form action={deleteServiceAction} className="mt-3">
+              <input type="hidden" name="id" value={service.id} />
+              <Button type="submit" variant="danger">Sil</Button>
+            </form>
           </section>
         ))}
       </div>

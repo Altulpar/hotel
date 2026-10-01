@@ -171,14 +171,14 @@ export async function saveRoomAction(formData: FormData) {
 }
 
 export async function deleteRoomAction(formData: FormData) {
-  await requireOwner();
+  await requireAdmin();
   await prisma.room.delete({ where: { id: asString(formData, "id") } });
   revalidatePath("/odalar");
   revalidatePath("/admin/rooms");
 }
 
 export async function deleteRoomImageAction(formData: FormData) {
-  await requireOwner();
+  await requireAdmin();
   const deletedImage = await prisma.roomImage.delete({
     where: { id: asString(formData, "id") }
   });
@@ -258,7 +258,7 @@ export async function saveGalleryAction(formData: FormData) {
 }
 
 export async function deleteGalleryAction(formData: FormData) {
-  await requireOwner();
+  await requireAdmin();
   await prisma.galleryImage.delete({ where: { id: asString(formData, "id") } });
   revalidatePath("/galeri");
   revalidatePath("/admin/gallery");
@@ -283,7 +283,7 @@ export async function saveServiceAction(formData: FormData) {
 }
 
 export async function deleteServiceAction(formData: FormData) {
-  await requireOwner();
+  await requireAdmin();
   await prisma.service.delete({ where: { id: asString(formData, "id") } });
   revalidatePath("/hizmetler");
   revalidatePath("/admin/services");
@@ -310,7 +310,7 @@ export async function saveCalendarAction(formData: FormData) {
 }
 
 export async function deleteCalendarAction(formData: FormData) {
-  await requireOwner();
+  await requireAdmin();
   await prisma.calendarItem.delete({ where: { id: asString(formData, "id") } });
   revalidatePath("/etkinlik-takvimi");
   revalidatePath("/admin/calendar");
@@ -335,7 +335,7 @@ export async function saveAnnouncementAction(formData: FormData) {
 }
 
 export async function deleteAnnouncementAction(formData: FormData) {
-  await requireOwner();
+  await requireAdmin();
   await prisma.announcement.delete({ where: { id: asString(formData, "id") } });
   revalidatePath("/duyurular");
   revalidatePath("/admin/announcements");
@@ -361,7 +361,7 @@ export async function saveNearbyAction(formData: FormData) {
 }
 
 export async function deleteNearbyAction(formData: FormData) {
-  await requireOwner();
+  await requireAdmin();
   await prisma.nearbyPlace.delete({ where: { id: asString(formData, "id") } });
   revalidatePath("/gor-yap");
   revalidatePath("/admin/nearby");
@@ -376,7 +376,7 @@ export async function toggleMessageReadAction(formData: FormData) {
 }
 
 export async function deleteMessageAction(formData: FormData) {
-  await requireOwner();
+  await requireAdmin();
   await prisma.contactMessage.delete({ where: { id: asString(formData, "id") } });
   revalidatePath("/admin/messages");
 }

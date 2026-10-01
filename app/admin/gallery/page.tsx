@@ -50,13 +50,12 @@ export default async function AdminGalleryPage() {
             </div>
           </form>
         ))}
-        {admin.role === "OWNER" &&
-          images.map((image) => (
-            <form key={`${image.id}-delete`} action={deleteGalleryAction}>
-              <input type="hidden" name="id" value={image.id} />
-              <Button type="submit" variant="danger">Sil: {image.title}</Button>
-            </form>
-          ))}
+        {images.map((image) => (
+          <form key={`${image.id}-delete`} action={deleteGalleryAction}>
+            <input type="hidden" name="id" value={image.id} />
+            <Button type="submit" variant="danger">Sil: {image.title}</Button>
+          </form>
+        ))}
       </div>
     </AdminShell>
   );

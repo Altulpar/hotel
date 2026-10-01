@@ -37,12 +37,10 @@ export default async function AdminMessagesPage() {
                   {message.isRead ? "Okunmadı Yap" : "Okundu Yap"}
                 </Button>
               </form>
-              {admin.role === "OWNER" && (
-                <form action={deleteMessageAction}>
-                  <input type="hidden" name="id" value={message.id} />
-                  <Button type="submit" variant="danger">Sil</Button>
-                </form>
-              )}
+              <form action={deleteMessageAction}>
+                <input type="hidden" name="id" value={message.id} />
+                <Button type="submit" variant="danger">Sil</Button>
+              </form>
             </div>
           </article>
         ))}

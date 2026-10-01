@@ -58,12 +58,10 @@ export default async function AdminCalendarPage() {
               <Field label="Açıklama" name="description" defaultValue={item.description} textarea required />
               <Button type="submit">Kaydet</Button>
             </form>
-            {admin.role === "OWNER" && (
-              <form action={deleteCalendarAction} className="mt-3">
-                <input type="hidden" name="id" value={item.id} />
-                <Button type="submit" variant="danger">Sil</Button>
-              </form>
-            )}
+            <form action={deleteCalendarAction} className="mt-3">
+              <input type="hidden" name="id" value={item.id} />
+              <Button type="submit" variant="danger">Sil</Button>
+            </form>
           </section>
         ))}
       </div>
