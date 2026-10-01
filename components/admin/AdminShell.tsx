@@ -12,7 +12,8 @@ const adminLinks = [
   ["Takvim", "/admin/calendar"],
   ["Duyurular", "/admin/announcements"],
   ["Gör & Yap", "/admin/nearby"],
-  ["Mesajlar", "/admin/messages"]
+  ["Mesajlar", "/admin/messages"],
+  ["Yöneticiler", "/admin/users"]
 ];
 
 export function AdminShell({ children, adminName }: { children: ReactNode; adminName: string }) {

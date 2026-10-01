@@ -5,6 +5,23 @@ export const loginSchema = z.object({
   password: z.string().min(8, "Şifre en az 8 karakter olmalı.")
 });
 
+export const adminUserSchema = z
+  .object({
+    name: z.string().min(2, "İsim en az 2 karakter olmalı.").max(120),
+    email: z.string().email("Geçerli bir e-posta girin."),
+    password: z
+      .string()
+      .min(12, "Şifre en az 12 karakter olmalı.")
+      .regex(/[a-z]/, "Şifre en az bir küçük harf içermeli.")
+      .regex(/[A-Z]/, "Şifre en az bir büyük harf içermeli.")
+      .regex(/[0-9]/, "Şifre en az bir rakam içermeli."),
+    passwordConfirm: z.string()
+  })
+  .refine((data) => data.password === data.passwordConfirm, {
+    message: "Şifreler eşleşmiyor.",
+    path: ["passwordConfirm"]
+  });
+
 export const contactSchema = z.object({
   name: z.string().min(2).max(120),
   email: z.string().email(),

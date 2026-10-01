@@ -1,11 +1,13 @@
 "use server";
 
+import bcrypt from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { loginAdmin, logoutAdmin, requireAdmin } from "@/lib/auth";
 import {
   announcementSchema,
+  adminUserSchema,
   calendarSchema,
   contactSchema,
   gallerySchema,
@@ -43,6 +45,38 @@ export async function adminLoginAction(_: unknown, formData: FormData) {
 export async function adminLogoutAction() {
   await logoutAdmin();
   redirect("/admin/login");
+}
+
+export async function createAdminUserAction(_: unknown, formData: FormData) {
+  await requireAdmin();
+
+  const parsed = adminUserSchema.safeParse({
+    name: asString(formData, "name"),
+    email: asString(formData, "email").toLowerCase(),
+    password: asString(formData, "password"),
+    passwordConfirm: asString(formData, "passwordConfirm")
+  });
+
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message || "Bilgileri kontrol edin." };
+  }
+
+  const existing = await prisma.adminUser.findUnique({
+    where: { email: parsed.data.email },
+    select: { id: true }
+  });
+  if (existing) return { error: "Bu e-posta adresiyle kayıtlı bir yönetici zaten var." };
+
+  await prisma.adminUser.create({
+    data: {
+      name: parsed.data.name,
+      email: parsed.data.email,
+      passwordHash: await bcrypt.hash(parsed.data.password, 12)
+    }
+  });
+
+  revalidatePath("/admin/users");
+  return { success: "Yeni yönetici hesabı oluşturuldu." };
 }
 
 export async function contactAction(_: unknown, formData: FormData) {
