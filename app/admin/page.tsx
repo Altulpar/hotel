@@ -25,7 +25,7 @@ export default async function AdminDashboardPage() {
     ["Takvim Öğesi", calendar]
   ];
   return (
-    <AdminShell adminName={admin.name}>
+    <AdminShell adminName={admin.name} adminRole={admin.role}>
       <h1 className="font-serif text-4xl font-semibold">Genel Bakış</h1>
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map(([label, value]) => (

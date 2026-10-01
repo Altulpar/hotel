@@ -74,12 +74,18 @@ export async function getAdmin() {
   if (!session) return null;
   return prisma.adminUser.findUnique({
     where: { id: session.adminId },
-    select: { id: true, name: true, email: true }
+    select: { id: true, name: true, email: true, role: true }
   });
 }
 
 export async function requireAdmin() {
   const admin = await getAdmin();
   if (!admin) redirect("/admin/login");
+  return admin;
+}
+
+export async function requireOwner() {
+  const admin = await requireAdmin();
+  if (admin.role !== "OWNER") redirect("/admin");
   return admin;
 }

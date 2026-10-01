@@ -23,7 +23,7 @@ export default async function AdminRoomsPage() {
     orderBy: { sortOrder: "asc" }
   });
   return (
-    <AdminShell adminName={admin.name}>
+    <AdminShell adminName={admin.name} adminRole={admin.role}>
       <h1 className="font-serif text-4xl font-semibold">Odalar</h1>
       <form action={saveRoomAction} className="mt-8 grid gap-5 rounded-lg bg-white p-6 shadow-soft">
         <h2 className="font-serif text-2xl font-semibold">Yeni oda ekle</h2>
@@ -118,16 +118,22 @@ export default async function AdminRoomsPage() {
                             <ArrowRight size={17} aria-hidden="true" />
                           </button>
                         </form>
-                        <form action={deleteRoomImageAction}>
-                          <input type="hidden" name="id" value={image.id} />
-                          <button
-                            type="submit"
-                            aria-label="Görseli sil"
-                            className="flex min-h-10 w-full items-center justify-center rounded-md bg-red-50 text-red-700 transition hover:bg-red-100"
-                          >
-                            <Trash2 size={17} aria-hidden="true" />
-                          </button>
-                        </form>
+                        {admin.role === "OWNER" ? (
+                          <form action={deleteRoomImageAction}>
+                            <input type="hidden" name="id" value={image.id} />
+                            <button
+                              type="submit"
+                              aria-label="Görseli sil"
+                              className="flex min-h-10 w-full items-center justify-center rounded-md bg-red-50 text-red-700 transition hover:bg-red-100"
+                            >
+                              <Trash2 size={17} aria-hidden="true" />
+                            </button>
+                          </form>
+                        ) : (
+                          <span className="flex min-h-10 items-center justify-center text-xs text-coast-ink/40">
+                            Silme yetkisi yok
+                          </span>
+                        )}
                         {index > 0 && (
                           <form action={reorderRoomImageAction} className="col-span-3">
                             <input type="hidden" name="id" value={image.id} />
@@ -146,10 +152,12 @@ export default async function AdminRoomsPage() {
                 </div>
               </div>
             )}
-            <form action={deleteRoomAction} className="mt-3">
-              <input type="hidden" name="id" value={room.id} />
-              <Button type="submit" variant="danger">Odayı Sil</Button>
-            </form>
+            {admin.role === "OWNER" && (
+              <form action={deleteRoomAction} className="mt-3">
+                <input type="hidden" name="id" value={room.id} />
+                <Button type="submit" variant="danger">Odayı Sil</Button>
+              </form>
+            )}
           </section>
         ))}
       </div>

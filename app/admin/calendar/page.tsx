@@ -25,7 +25,7 @@ export default async function AdminCalendarPage() {
   const admin = await requireAdmin();
   const items = await prisma.calendarItem.findMany({ orderBy: { date: "asc" } });
   return (
-    <AdminShell adminName={admin.name}>
+    <AdminShell adminName={admin.name} adminRole={admin.role}>
       <h1 className="font-serif text-4xl font-semibold">Etkinlik Takvimi</h1>
       <form action={saveCalendarAction} className="mt-8 grid gap-5 rounded-lg bg-white p-6 shadow-soft">
         <h2 className="font-serif text-2xl font-semibold">Takvim öğesi ekle</h2>
@@ -58,10 +58,12 @@ export default async function AdminCalendarPage() {
               <Field label="Açıklama" name="description" defaultValue={item.description} textarea required />
               <Button type="submit">Kaydet</Button>
             </form>
-            <form action={deleteCalendarAction} className="mt-3">
-              <input type="hidden" name="id" value={item.id} />
-              <Button type="submit" variant="danger">Sil</Button>
-            </form>
+            {admin.role === "OWNER" && (
+              <form action={deleteCalendarAction} className="mt-3">
+                <input type="hidden" name="id" value={item.id} />
+                <Button type="submit" variant="danger">Sil</Button>
+              </form>
+            )}
           </section>
         ))}
       </div>

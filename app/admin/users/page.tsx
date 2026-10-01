@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db";
-import { requireAdmin } from "@/lib/auth";
+import { requireOwner } from "@/lib/auth";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { CreateAdminForm } from "@/components/admin/CreateAdminForm";
 
@@ -8,14 +8,14 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Yöneticiler" };
 
 export default async function AdminUsersPage() {
-  const admin = await requireAdmin();
+  const admin = await requireOwner();
   const admins = await prisma.adminUser.findMany({
-    select: { id: true, name: true, email: true, createdAt: true },
+    select: { id: true, name: true, email: true, role: true, createdAt: true },
     orderBy: { createdAt: "asc" }
   });
 
   return (
-    <AdminShell adminName={admin.name}>
+    <AdminShell adminName={admin.name} adminRole={admin.role}>
       <h1 className="font-serif text-4xl font-semibold">Yöneticiler</h1>
       <p className="mt-3 text-coast-ink/65">
         Admin paneline erişebilecek yeni bir hesap oluşturun.
@@ -34,6 +34,9 @@ export default async function AdminUsersPage() {
               <div>
                 <p className="font-semibold text-coast-ink">{item.name}</p>
                 <p className="text-sm text-coast-ink/60">{item.email}</p>
+                <p className="mt-1 text-xs text-coast-ink/45">
+                  {item.role === "OWNER" ? "Ana yönetici" : "İçerik yöneticisi"}
+                </p>
               </div>
               {item.id === admin.id && (
                 <span className="rounded-full bg-coast-mist px-3 py-1 text-xs font-semibold text-coast-deep">

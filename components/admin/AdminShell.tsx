@@ -12,11 +12,19 @@ const adminLinks = [
   ["Takvim", "/admin/calendar"],
   ["Duyurular", "/admin/announcements"],
   ["Gör & Yap", "/admin/nearby"],
-  ["Mesajlar", "/admin/messages"],
-  ["Yöneticiler", "/admin/users"]
+  ["Mesajlar", "/admin/messages"]
 ];
 
-export function AdminShell({ children, adminName }: { children: ReactNode; adminName: string }) {
+export function AdminShell({
+  children,
+  adminName,
+  adminRole
+}: {
+  children: ReactNode;
+  adminName: string;
+  adminRole: string;
+}) {
+  const links = adminRole === "OWNER" ? [...adminLinks, ["Yöneticiler", "/admin/users"]] : adminLinks;
   return (
     <div className="min-h-screen bg-coast-mist">
       <aside className="fixed inset-y-0 left-0 hidden w-72 border-r border-coast-sage/20 bg-white p-6 lg:block">
@@ -24,7 +32,7 @@ export function AdminShell({ children, adminName }: { children: ReactNode; admin
           Otel Paneli
         </Link>
         <nav className="mt-8 grid gap-2">
-          {adminLinks.map(([label, href]) => (
+          {links.map(([label, href]) => (
             <Link
               key={href}
               href={href}
@@ -46,13 +54,16 @@ export function AdminShell({ children, adminName }: { children: ReactNode; admin
             <div>
               <p className="text-sm text-coast-ink/60">Hoş geldiniz</p>
               <p className="font-semibold text-coast-ink">{adminName}</p>
+              <p className="text-xs text-coast-ink/50">
+                {adminRole === "OWNER" ? "Ana yönetici" : "İçerik yöneticisi"}
+              </p>
             </div>
             <Link href="/" className="text-sm font-semibold text-coast-deep">
               Siteyi Gör
             </Link>
           </div>
           <nav className="mt-4 flex gap-3 overflow-x-auto text-sm lg:hidden">
-            {adminLinks.map(([label, href]) => (
+            {links.map(([label, href]) => (
               <Link key={href} href={href} className="shrink-0 rounded-md bg-coast-mist px-3 py-2">
                 {label}
               </Link>

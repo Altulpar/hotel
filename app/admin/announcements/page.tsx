@@ -16,7 +16,7 @@ export default async function AdminAnnouncementsPage() {
   const admin = await requireAdmin();
   const announcements = await prisma.announcement.findMany({ orderBy: { date: "desc" } });
   return (
-    <AdminShell adminName={admin.name}>
+    <AdminShell adminName={admin.name} adminRole={admin.role}>
       <h1 className="font-serif text-4xl font-semibold">Duyurular</h1>
       <form action={saveAnnouncementAction} className="mt-8 grid gap-5 rounded-lg bg-white p-6 shadow-soft">
         <h2 className="font-serif text-2xl font-semibold">Duyuru ekle</h2>
@@ -45,10 +45,12 @@ export default async function AdminAnnouncementsPage() {
               <Field label="İçerik" name="content" defaultValue={item.content} textarea rows={7} required />
               <Button type="submit">Kaydet</Button>
             </form>
-            <form action={deleteAnnouncementAction} className="mt-3">
-              <input type="hidden" name="id" value={item.id} />
-              <Button type="submit" variant="danger">Sil</Button>
-            </form>
+            {admin.role === "OWNER" && (
+              <form action={deleteAnnouncementAction} className="mt-3">
+                <input type="hidden" name="id" value={item.id} />
+                <Button type="submit" variant="danger">Sil</Button>
+              </form>
+            )}
           </section>
         ))}
       </div>

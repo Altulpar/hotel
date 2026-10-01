@@ -16,7 +16,7 @@ export default async function AdminServicesPage() {
   const admin = await requireAdmin();
   const services = await prisma.service.findMany({ orderBy: { sortOrder: "asc" } });
   return (
-    <AdminShell adminName={admin.name}>
+    <AdminShell adminName={admin.name} adminRole={admin.role}>
       <h1 className="font-serif text-4xl font-semibold">Hizmetler</h1>
       <form action={saveServiceAction} className="mt-8 grid gap-5 rounded-lg bg-white p-6 shadow-soft">
         <h2 className="font-serif text-2xl font-semibold">Hizmet ekle</h2>
@@ -45,10 +45,12 @@ export default async function AdminServicesPage() {
               <Field label="Açıklama" name="description" defaultValue={service.description} textarea required />
               <Button type="submit">Kaydet</Button>
             </form>
-            <form action={deleteServiceAction} className="mt-3">
-              <input type="hidden" name="id" value={service.id} />
-              <Button type="submit" variant="danger">Sil</Button>
-            </form>
+            {admin.role === "OWNER" && (
+              <form action={deleteServiceAction} className="mt-3">
+                <input type="hidden" name="id" value={service.id} />
+                <Button type="submit" variant="danger">Sil</Button>
+              </form>
+            )}
           </section>
         ))}
       </div>

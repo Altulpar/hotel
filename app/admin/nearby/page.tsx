@@ -15,7 +15,7 @@ export default async function AdminNearbyPage() {
   const admin = await requireAdmin();
   const places = await prisma.nearbyPlace.findMany({ orderBy: { sortOrder: "asc" } });
   return (
-    <AdminShell adminName={admin.name}>
+    <AdminShell adminName={admin.name} adminRole={admin.role}>
       <h1 className="font-serif text-4xl font-semibold">Gör & Yap</h1>
       <form action={saveNearbyAction} className="mt-8 grid gap-5 rounded-lg bg-white p-6 shadow-soft">
         <h2 className="font-serif text-2xl font-semibold">Yakın yer ekle</h2>
@@ -46,10 +46,12 @@ export default async function AdminNearbyPage() {
               <Field label="Açıklama" name="description" defaultValue={place.description} textarea required />
               <Button type="submit">Kaydet</Button>
             </form>
-            <form action={deleteNearbyAction} className="mt-3">
-              <input type="hidden" name="id" value={place.id} />
-              <Button type="submit" variant="danger">Sil</Button>
-            </form>
+            {admin.role === "OWNER" && (
+              <form action={deleteNearbyAction} className="mt-3">
+                <input type="hidden" name="id" value={place.id} />
+                <Button type="submit" variant="danger">Sil</Button>
+              </form>
+            )}
           </section>
         ))}
       </div>

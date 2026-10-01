@@ -23,7 +23,7 @@ export default async function AdminGalleryPage() {
   const admin = await requireAdmin();
   const images = await prisma.galleryImage.findMany({ orderBy: { sortOrder: "asc" } });
   return (
-    <AdminShell adminName={admin.name}>
+    <AdminShell adminName={admin.name} adminRole={admin.role}>
       <h1 className="font-serif text-4xl font-semibold">Galeri</h1>
       <form action={saveGalleryAction} className="mt-8 grid gap-5 rounded-lg bg-white p-6 shadow-soft">
         <h2 className="font-serif text-2xl font-semibold">Görsel ekle</h2>
@@ -50,12 +50,13 @@ export default async function AdminGalleryPage() {
             </div>
           </form>
         ))}
-        {images.map((image) => (
-          <form key={`${image.id}-delete`} action={deleteGalleryAction}>
-            <input type="hidden" name="id" value={image.id} />
-            <Button type="submit" variant="danger">Sil: {image.title}</Button>
-          </form>
-        ))}
+        {admin.role === "OWNER" &&
+          images.map((image) => (
+            <form key={`${image.id}-delete`} action={deleteGalleryAction}>
+              <input type="hidden" name="id" value={image.id} />
+              <Button type="submit" variant="danger">Sil: {image.title}</Button>
+            </form>
+          ))}
       </div>
     </AdminShell>
   );

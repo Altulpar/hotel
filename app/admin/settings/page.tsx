@@ -12,7 +12,7 @@ export default async function SettingsPage() {
   const admin = await requireAdmin();
   const hotel = await prisma.hotelInfo.findFirst();
   return (
-    <AdminShell adminName={admin.name}>
+    <AdminShell adminName={admin.name} adminRole={admin.role}>
       <h1 className="font-serif text-4xl font-semibold">Otel Bilgileri</h1>
       <form action={updateHotelInfoAction} className="mt-8 grid gap-5 rounded-lg bg-white p-6 shadow-soft">
         <div className="grid gap-5 md:grid-cols-2">

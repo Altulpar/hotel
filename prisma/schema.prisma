@@ -12,6 +12,7 @@ model AdminUser {
   name         String
   email        String   @unique
   passwordHash String
+  role         String   @default("EDITOR")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }

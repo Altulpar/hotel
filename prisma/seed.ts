@@ -9,11 +9,12 @@ async function main() {
 
   await prisma.adminUser.upsert({
     where: { email },
-    update: {},
+    update: { role: "OWNER" },
     create: {
       email,
       name: "Otel Yöneticisi",
-      passwordHash: await bcrypt.hash(password, 12)
+      passwordHash: await bcrypt.hash(password, 12),
+      role: "OWNER"
     }
   });
 

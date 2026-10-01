@@ -11,7 +11,7 @@ export default async function AdminMessagesPage() {
   const admin = await requireAdmin();
   const messages = await prisma.contactMessage.findMany({ orderBy: { createdAt: "desc" } });
   return (
-    <AdminShell adminName={admin.name}>
+    <AdminShell adminName={admin.name} adminRole={admin.role}>
       <h1 className="font-serif text-4xl font-semibold">İletişim Mesajları</h1>
       <div className="mt-8 grid gap-5">
         {messages.map((message) => (
@@ -37,10 +37,12 @@ export default async function AdminMessagesPage() {
                   {message.isRead ? "Okunmadı Yap" : "Okundu Yap"}
                 </Button>
               </form>
-              <form action={deleteMessageAction}>
-                <input type="hidden" name="id" value={message.id} />
-                <Button type="submit" variant="danger">Sil</Button>
-              </form>
+              {admin.role === "OWNER" && (
+                <form action={deleteMessageAction}>
+                  <input type="hidden" name="id" value={message.id} />
+                  <Button type="submit" variant="danger">Sil</Button>
+                </form>
+              )}
             </div>
           </article>
         ))}
