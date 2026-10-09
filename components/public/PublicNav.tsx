@@ -30,7 +30,7 @@ export async function PublicNav() {
           className="relative h-[92px] w-[132px] shrink-0 overflow-hidden md:h-[108px] md:w-[156px]"
         >
           <Image
-            src="/ad-otelcilik-fiore-logo.png"
+            src="/ad-otelcilik-fiore-logo-clear.png"
             alt="Ad Otelcilik Fiore Gökçeada"
             fill
             priority
